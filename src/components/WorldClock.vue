@@ -8,19 +8,27 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import ModalClock from "./ModalClock.vue";
 import useGetCurrentTimeByIp from "@/hooks/useGetCurrentTimeByIp";
 import { getAheadBehind, getCurrentTime, getDiffTime } from "@/utils/util";
+import useAddCity from "@/hooks/useAddCIty";
 
-const { timezone } = useGetCurrentTimeByIp();
+const { showModal, handleAddCity, cities, handleRemove } = useAddCity();
+const { timezone: currentTimezone } = useGetCurrentTimeByIp();
 
-const showModal = ref(false);
-const cityLabel = ref("");
+const shortLabel = ref("");
 const selectedCity = ref("");
 const interval = ref(0);
 
-const localTime = ref(new Date(getCurrentTime(timezone?.value?.datetime)));
-const city = computed(() => timezone?.value?.timezone?.split("/")[1]);
-const aheadBehind = computed(() => getAheadBehind(timezone?.value?.datetime));
+const localTime = ref(
+  new Date(getCurrentTime(currentTimezone?.value?.datetime))
+);
+const city = computed(() => currentTimezone?.value?.timezone?.split("/")[1]);
+const aheadBehind = computed(() =>
+  getAheadBehind(currentTimezone?.value?.datetime)
+);
 const diffHour = computed(() =>
-  getDiffTime(new Date(), new Date(getCurrentTime(timezone?.value?.datetime)))
+  getDiffTime(
+    new Date(),
+    new Date(getCurrentTime(currentTimezone?.value?.datetime))
+  )
 );
 
 onMounted(() => {
@@ -40,10 +48,6 @@ onUnmounted(() => {
   clearInterval(interval.value);
 });
 
-const handleRemove = (city: string) => {
-  console.log("remove city: " + city);
-};
-
 const addCity = () => {
   console.log("add");
   showModal.value = !showModal.value;
@@ -52,7 +56,8 @@ const addCity = () => {
 const onOk = () => {
   console.log("onOk");
   showModal.value = !showModal.value;
-  console.log(selectedCity.value, cityLabel.value);
+  console.log(selectedCity.value, shortLabel.value);
+  handleAddCity(selectedCity, shortLabel);
 };
 
 const onCancel = () => {
@@ -67,8 +72,9 @@ const onCancel = () => {
       <div className="w-full h-full flex flex-col">
         <MainClock :city="city" :time="localTime" />
         <ListClock
+          :currentTime="currentTimezone"
           @handleRemove="handleRemove"
-          :cities="['jakarta', 'Manado']"
+          :cities="cities"
         />
         <ButtonClock
           styleContainer="pb-12"
@@ -109,7 +115,7 @@ const onCancel = () => {
       <label htmlFor="label">Short Label</label>
       <br />
       <input
-        v-model="cityLabel"
+        v-model="shortLabel"
         name="label"
         type="text"
         placeholder="Input Short Label"
