@@ -13,7 +13,7 @@ const props = defineProps(["city", "currentCity", "label", "currentTime"]);
 defineEmits(["handleRemove"]);
 
 const { timezone } = useGetTimezone({ city: props.city });
-const interval = ref(0);
+let interval: ReturnType<typeof setInterval> | undefined;
 
 const cityTimezone = computed(() => timezone?.value?.timezone);
 const abbreviations = computed(() => timezone?.value?.abbreviations);
@@ -28,7 +28,7 @@ const diffHour = computed(() =>
 );
 
 onMounted(() => {
-  interval.value = setInterval(() => {
+  interval = setInterval(() => {
     const time = new Date();
     const hour = time.getHours() === 0 ? 24 : time.getHours();
     time.setHours(
@@ -41,10 +41,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  clearInterval(interval.value);
+  clearInterval(interval);
 });
 
-const emit = "handleRemove";
 </script>
 
 <template>
@@ -79,8 +78,8 @@ const emit = "handleRemove";
       <ButtonClock
         styleContainer="pb-12"
         label="Remove"
-        :actionCaptured="emit"
-        @handleRemove="$emit(emit)"
+        actionCaptured="handleRemove"
+        @handleRemove="$emit('handleRemove')"
       />
     </div>
   </div>

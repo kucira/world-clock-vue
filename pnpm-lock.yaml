@@ -3,8 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@rushstack/eslint-patch': ^1.1.4
   '@types/jsdom': ^20.0.0
-  '@types/node': ^16.11.47
-  '@vitejs/plugin-vue': ^3.0.1
+  '@types/node': ^16.11.48
+  '@vitejs/plugin-vue': ^3.0.2
   '@vitejs/plugin-vue-jsx': ^2.0.0
   '@vue/eslint-config-prettier': ^7.0.0
   '@vue/eslint-config-typescript': ^11.0.0
@@ -15,13 +15,13 @@ specifiers:
   eslint-plugin-vue: ^9.3.0
   jsdom: ^20.0.0
   npm-run-all: ^4.1.5
-  pinia: ^2.0.17
+  pinia: ^2.0.18
   postcss: ^8.4.16
   prettier: ^2.7.1
   tailwindcss: ^3.1.8
   typescript: ~4.7.4
-  vite: ^3.0.4
-  vitest: ^0.21.0
+  vite: ^3.0.6
+  vitest: ^0.21.1
   vue: ^3.2.37
   vue-router: ^4.1.3
   vue-tsc: ^0.39.5
@@ -48,7 +48,7 @@ devDependencies:
   npm-run-all: 4.1.5
   postcss: 8.4.16
   prettier: 2.7.1
-  tailwindcss: 3.1.8
+  tailwindcss: 3.1.8_postcss@8.4.16
   typescript: 4.7.4
   vite: 3.0.6
   vitest: 0.21.1_jsdom@20.0.0
@@ -962,7 +962,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.3
-      caniuse-lite: 1.0.30001375
+      caniuse-lite: 1.0.30001462
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -1006,7 +1006,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001375
+      caniuse-lite: 1.0.30001462
       electron-to-chromium: 1.4.217
       node-releases: 2.0.6
       update-browserslist-db: 1.0.5_browserslist@4.21.3
@@ -1034,8 +1034,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001375:
-    resolution: {integrity: sha512-kWIMkNzLYxSvnjy0hL8w1NOaWNr2rn39RTAVyIwcw8juu60bZDWiF1/loOYANzjtJmy6qPgNmn38ro5Pygagdw==}
+  /caniuse-lite/1.0.30001462:
+    resolution: {integrity: sha512-PDd20WuOBPiasZ7KbFnmQRyuLE7cFXW2PVd7dmALzbkUXEP46upAuCDm9eY9vho8fgNMGmbAX92QBZHzcnWIqw==}
     dev: true
 
   /chai/4.3.6:
@@ -2942,10 +2942,12 @@ packages:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
     dev: true
 
-  /tailwindcss/3.1.8:
+  /tailwindcss/3.1.8_postcss@8.4.16:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3

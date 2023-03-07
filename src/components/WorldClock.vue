@@ -15,7 +15,7 @@ const { timezone: currentTimezone } = useGetCurrentTimeByIp();
 
 const shortLabel = ref("");
 const selectedCity = ref("");
-const interval = ref(0);
+let interval: ReturnType<typeof setInterval> | undefined;
 
 const localTime = ref(
   new Date(getCurrentTime(currentTimezone?.value?.datetime))
@@ -32,7 +32,7 @@ const diffHour = computed(() =>
 );
 
 onMounted(() => {
-  interval.value = setInterval(() => {
+  interval = setInterval(() => {
     const time = new Date();
     const hour = time.getHours() === 0 ? 24 : time.getHours();
     time.setHours(
@@ -45,7 +45,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  clearInterval(interval.value);
+  clearInterval(interval);
 });
 
 const addCity = () => {
